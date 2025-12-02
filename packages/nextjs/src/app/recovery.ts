@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 import { FlowType, RecoveryFlow } from "@ory/client-fetch"
 import { initOverrides, QueryParams } from "../types"
-import { guessPotentiallyProxiedOrySdkUrl } from "../utils/sdk"
 import { serverSideFrontendClient } from "./client"
 import { getFlowFactory } from "./flow"
 import { getPublicUrl, toGetFlowParameter } from "./utils"
@@ -54,9 +53,7 @@ export async function getRecoveryFlow(
         initOverrides,
       ),
     FlowType.Recovery,
-    guessPotentiallyProxiedOrySdkUrl({
-      knownProxiedUrl: await getPublicUrl(),
-    }),
+    await getPublicUrl(),
     config.project.recovery_ui_url,
   )
 }

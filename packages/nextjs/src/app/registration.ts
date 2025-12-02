@@ -3,7 +3,6 @@
 import { FlowType, RegistrationFlow } from "@ory/client-fetch"
 
 import { initOverrides, QueryParams } from "../types"
-import { guessPotentiallyProxiedOrySdkUrl } from "../utils/sdk"
 import { serverSideFrontendClient } from "./client"
 import { getFlowFactory } from "./flow"
 import { getPublicUrl, toGetFlowParameter } from "./utils"
@@ -56,9 +55,7 @@ export async function getRegistrationFlow(
         initOverrides,
       ),
     FlowType.Registration,
-    guessPotentiallyProxiedOrySdkUrl({
-      knownProxiedUrl: await getPublicUrl(),
-    }),
+    await getPublicUrl(),
     config.project.registration_ui_url,
   )
 }
